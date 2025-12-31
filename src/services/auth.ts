@@ -76,6 +76,9 @@ export const login = async (email: string, password: string) => {
       throw new Error("Incorrect password");
     }
 
+    localStorage.setItem("currentUser", JSON.stringify(data));
+    sessionStorage.setItem("currentUser", JSON.stringify(data));
+
     return data;
   } catch (err: any) {
     throw new Error(err.message);
