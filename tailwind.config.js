@@ -4,14 +4,7 @@ module.exports = {
     './index.html',
     './src/**/*.{js,ts,jsx,tsx,html}'],
   theme: {
-    extend: {
-      borderColor: {
-        border: 'var(--border)',
-      },
-      outlineColor: {
-        ring: 'var(--ring)',
-      },
-    },
+    extend: {},
   },
   plugins: [],
 };
