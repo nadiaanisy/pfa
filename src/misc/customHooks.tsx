@@ -1,5 +1,10 @@
-import { useState } from 'react';
-import { UserProfile } from './interfaces';
+import {
+  useState
+} from 'react';
+import {
+  IncomeSource,
+  UserProfile
+} from './interfaces';
 
 export const useCustomHook = () => {
   const [loading, setLoading] = useState(false);
@@ -16,6 +21,15 @@ export const useCustomHook = () => {
     JSON.parse(localStorage.getItem('darkMode') || 'false')
   );
   const [avatarUrl, setAvatarUrl] = useState<string>('');
+  const [incomeSources, setIncomeSources] = useState<IncomeSource[]>([]);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [name, setName] = useState('');
+  const [type, setType] = useState<'salary' | 'rental' | 'loan' | 'dividend' | 'other'>('salary');
+  const [amount, setAmount] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedSource, setSelectedSource] = useState('All');
+  const [showFilters, setShowFilters] = useState(false);
 
   return {
     loading,
@@ -41,6 +55,24 @@ export const useCustomHook = () => {
     darkMode,
     setDarkMode,
     avatarUrl,
-    setAvatarUrl
+    setAvatarUrl,
+    showAddModal,
+    setShowAddModal,
+    name,
+    setName,
+    type,
+    setType,
+    amount,
+    setAmount,
+    incomeSources,
+    setIncomeSources,
+    searchTerm,
+    setSearchTerm,
+    selectedCategory,
+    setSelectedCategory,
+    selectedSource,
+    setSelectedSource,
+    showFilters,
+    setShowFilters,
   };
 }

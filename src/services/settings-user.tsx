@@ -12,13 +12,27 @@ export const getCurrentUser = () => {
 export const updateUserDetails = async (updatedInfo: any) => {
   const { error } = await supabase
     .from('users')
-    .update({ full_name: updatedInfo.full_name, email: updatedInfo.email })
+    .update({ full_name: updatedInfo.full_name, email: updatedInfo.email, currency: updatedInfo.currency })
     .eq('id', updatedInfo.id);
 
   if (error) {
     console.log(error.message)
     return false;
   }
+
+  const { data, error: fetchError } = await supabase
+    .from('users')
+    .select('*')
+    .eq('id', updatedInfo.id)
+    .single();
+  
+  if (fetchError) {
+    console.log(fetchError.message);
+    return false;
+  }
+
+  sessionStorage.setItem("currentUser", JSON.stringify(data));
+  localStorage.setItem("currentUser", JSON.stringify(data));
 
   return true;
 };
@@ -60,7 +74,6 @@ export const fetchCurrentUser = async () => {
 
   const userId = JSON.parse(sessionUser).id;
 
-  // Replace this with your real API call
   const { data, error } = await supabase
     .from('users')
     .select('*')
@@ -72,8 +85,16 @@ export const fetchCurrentUser = async () => {
     return JSON.parse(sessionUser); // fallback to session
   }
 
-  // Update sessionStorage with fresh data
+  const { data: loginHistory, error: historyError } = await supabase
+    .from('login_history')
+    .select('*')
+    .eq('user_id', data.id)
+    .order('login_time', { ascending: false })
+    .limit(5);
+
+  if (historyError) console.error('Error fetching login history:', historyError);
   sessionStorage.setItem("currentUser", JSON.stringify(data));
   localStorage.setItem("currentUser", JSON.stringify(data));
-  return data;
+
+  return { ...data, loginHistory: loginHistory || [] };
 };

@@ -78,9 +78,24 @@ export const login = async (email: string, password: string) => {
 
     localStorage.setItem("currentUser", JSON.stringify(data));
     sessionStorage.setItem("currentUser", JSON.stringify(data));
+    updateLastLogin(data.id);
+
+    await supabase.from('login_history').insert({
+      user_id: data.id,
+      login_time: new Date().toISOString()
+    });
 
     return data;
   } catch (err: any) {
     throw new Error(err.message);
   }
+};
+
+export const updateLastLogin = async (userId: string) => {
+  const { error } = await supabase
+    .from('users')
+    .update({ last_login: new Date().toISOString() })
+    .eq('id', userId);
+
+  if (error) console.error('Failed to update last login:', error);
 };

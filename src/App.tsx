@@ -12,30 +12,33 @@ import { AuthProvider } from './services/context/AuthContext';
 import ForgotPassword from './components/pages/ForgotPassword';
 import ChangePassword from './components/pages/ChangePassword';
 import ProtectedRoute from './components/routes/ProtectedRoute';
+import { ExpenseProvider } from './services/context/ExpenseContext';
 
 function App() {
   return (
     <AuthProvider>
-      <Toaster
-        position="top-right"
-        richColors
-      />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/change-password" element={<ChangePassword />} />
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
-      </BrowserRouter>
+      <ExpenseProvider>
+        <Toaster
+          position="top-right"
+          richColors
+        />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/change-password" element={<ChangePassword />} />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </BrowserRouter>
+      </ExpenseProvider>
     </AuthProvider>
   )
 }
