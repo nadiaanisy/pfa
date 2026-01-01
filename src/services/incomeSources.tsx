@@ -1,12 +1,13 @@
 import { supabase } from '../misc/supabaseClient';
 
-export const getIncomeSources = async () => {
+export const getIncomeSources = async (userId: string) => {
   try {
     const { data, error } = await supabase
       .from('income_sources')
       .select('*')
-      .order('created_at', { ascending: false });
-    
+      .order('created_at', { ascending: false })
+      .eq('user_id', userId);
+
     if (error) {
       console.error("Error fetching income sources:", error);
       return [];
@@ -20,7 +21,11 @@ export const getIncomeSources = async () => {
 
 export const deleteIncomeSources = async (id: string) => {
   try {
-    const { error } = await supabase.from('income_sources').delete().eq('id', id);
+    const { error } = await supabase
+      .from('income_sources')
+      .delete()
+      .eq('id', id);
+
     if (error) {
       console.error('Delete error:', error);
       return false;
@@ -33,6 +38,7 @@ export const deleteIncomeSources = async (id: string) => {
 };
 
 export const addIncomeSource = async (incomeSource: {
+  user_id: string;
   name: string;
   type: 'salary' | 'rental' | 'loan' | 'dividend' | 'other';
   amount: number;
@@ -58,6 +64,7 @@ export const addIncomeSource = async (incomeSource: {
 
 export const updateIncomeSource = async (data: {
   id: string;
+  user_id: string;
   name: string;
   type: 'salary' | 'rental' | 'loan' | 'dividend' | 'other';
   amount: number;
@@ -68,6 +75,7 @@ export const updateIncomeSource = async (data: {
     const { data: updatedRows, error } = await supabase
       .from('income_sources')
       .update({
+        user_id: data.user_id,
         name: data.name,
         type: data.type,
         amount: data.amount,
@@ -81,7 +89,7 @@ export const updateIncomeSource = async (data: {
       console.error('Update error:', error);
       return null;
     }
-    return updatedRows[0]; // return the updated source object
+    return updatedRows[0];
   } catch (error) {
     console.error('Update error:', error);
     return null;

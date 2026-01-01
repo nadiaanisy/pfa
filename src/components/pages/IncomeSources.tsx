@@ -35,15 +35,18 @@ export const IncomeSources: React.FC = () => {
     type,
     setType,
     amount,
-    setAmount
+    setAmount,
+    user,
+    setUser
   } = useCustomHook();
 
   const [editingSource, setEditingSource] = React.useState<IncomeSource | null>(null);
 
   useEffect(() => {
     const fetchIncomeSources = async () => {
-      const data = await getIncomeSources();
-      console.log("Fetched income sources:", data);
+      const currentUser = getCurrentUser();
+      setUser(currentUser);
+      const data = await getIncomeSources(currentUser.id);
       setIncomeSources(data as IncomeSource[]);
     }
     fetchIncomeSources();
@@ -51,13 +54,13 @@ export const IncomeSources: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name || !amount) return;
+    if (!name || !amount || !user?.id) return;
 
     const colors = ['#A8D5BA', '#FFD4A3', '#B4A7D6', '#FFB4B4', '#A3C4F3'];
     const color = colors[Math.floor(Math.random() * colors.length)];
 
     if (editingSource) {
-      const updatedSource = { ...editingSource, name, type, amount: parseFloat(amount), balance: parseFloat(amount), color };
+      const updatedSource = { ...editingSource, user_id: user.id, name, type, amount: parseFloat(amount), balance: parseFloat(amount), color };
       const result = await updateIncomeSource(updatedSource);
       if (result) {
         toast.success('Income source updated successfully.');
@@ -66,7 +69,14 @@ export const IncomeSources: React.FC = () => {
         toast.error('Failed to update income source.');
       }
     } else {
-      const result = await addIncomeSource({ name, type, amount: parseFloat(amount), balance: parseFloat(amount), color })
+      const result = await addIncomeSource({
+        user_id: user.id,
+        name,
+        type,
+        amount: parseFloat(amount),
+        balance: parseFloat(amount),
+        color,
+      })
       if (result) {
         toast.success('Income source added successfully.');
         setIncomeSources([...(incomeSources as IncomeSource[]), result]);
@@ -118,7 +128,7 @@ export const IncomeSources: React.FC = () => {
           <h2 className="text-3xl font-bold">
             {new Intl.NumberFormat('en-MY', {
               style: 'currency',
-              currency: getCurrentUser().currency, // e.g., 'MYR', 'USD'
+              currency: getCurrentUser().currency,
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,
             }).format(getTotalBalance())}

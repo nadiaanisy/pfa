@@ -8,15 +8,18 @@ export const getCurrentUser = () => {
   return JSON.parse(userData);
 };
 
-
 export const updateUserDetails = async (updatedInfo: any) => {
   const { error } = await supabase
     .from('users')
-    .update({ full_name: updatedInfo.full_name, email: updatedInfo.email, currency: updatedInfo.currency })
+    .update({
+      full_name: updatedInfo.full_name,
+      email: updatedInfo.email,
+      currency: updatedInfo.currency
+    })
     .eq('id', updatedInfo.id);
 
   if (error) {
-    console.log(error.message)
+    console.log(error.message);
     return false;
   }
 
