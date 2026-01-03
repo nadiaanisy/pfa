@@ -237,3 +237,7 @@ a {
 .bg-card {
   background-color: var(--card);
 }
+
+.bg-aliceblue {
+  background-color: #f0f8ff;
+}
