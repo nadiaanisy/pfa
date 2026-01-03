@@ -2,9 +2,12 @@ import {
   useState
 } from 'react';
 import {
+  Expense,
   IncomeSource,
   UserProfile
 } from './interfaces';
+import { format } from 'date-fns';
+import { CATEGORIES } from './constants';
 
 export const useCustomHook = () => {
   const [loading, setLoading] = useState(false);
@@ -30,6 +33,15 @@ export const useCustomHook = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedSource, setSelectedSource] = useState('All');
   const [showFilters, setShowFilters] = useState(false);
+  const [title, setTitle] = useState('');
+  const [category, setCategory] = useState(CATEGORIES[0]);
+  const [date, setDate] = useState(format(new Date(), 'yyyy-MM-dd'));
+  const [incomeSourceId, setIncomeSourceId] = useState(incomeSources[0]?.id || '');
+  const [isRecurring, setIsRecurring] = useState(false);
+  const [recurringFrequency, setRecurringFrequency] = useState<null | 'daily' | 'weekly' | 'monthly' | 'yearly'>(null);
+  const [notes, setNotes] = useState('');
+  const [expenses, setExpenses] = useState<Expense[]>([]);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   return {
     loading,
@@ -74,5 +86,23 @@ export const useCustomHook = () => {
     setSelectedSource,
     showFilters,
     setShowFilters,
+    title,
+    setTitle,
+    category,
+    setCategory,
+    date,
+    setDate,
+    incomeSourceId,
+    setIncomeSourceId,
+    isRecurring,
+    setIsRecurring,
+    recurringFrequency,
+    setRecurringFrequency,
+    notes,
+    setNotes,
+    expenses,
+    setExpenses,
+    refreshKey,
+    setRefreshKey
   };
 }

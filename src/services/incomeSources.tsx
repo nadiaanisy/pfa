@@ -95,3 +95,43 @@ export const updateIncomeSource = async (data: {
     return null;
   }
 };
+
+export const updateIncomeSourceBalance = async (
+  incomeSourceId: string,
+  amount: number
+) => {
+  try {
+    // Fetch current income source
+    const { data: sourceData, error: fetchError } = await supabase
+      .from('income_sources')
+      .select('*')
+      .eq('id', incomeSourceId)
+      .single();
+
+    if (fetchError || !sourceData) {
+      console.error('Failed to fetch income source:', fetchError);
+      return null;
+    }
+
+    // Calculate new balance, ensuring it doesn't go negative
+    const newBalance = Math.max(0, sourceData.balance - amount);
+
+    // Update the balance
+    const { data: updatedData, error: updateError } = await supabase
+      .from('income_sources')
+      .update({ balance: newBalance })
+      .eq('id', incomeSourceId)
+      .select()
+      .single();
+
+    if (updateError || !updatedData) {
+      console.error('Failed to update income source:', updateError);
+      return null;
+    }
+
+    return updatedData;
+  } catch (error) {
+    console.error('Unexpected error updating income source balance:', error);
+    return null;
+  }
+};

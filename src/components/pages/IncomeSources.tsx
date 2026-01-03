@@ -156,7 +156,7 @@ export const IncomeSources: React.FC = () => {
                       {source.type}
                     </span>
                   </div>
-                  <button
+                  {/* <button
                     onClick={() => {
                       setEditingSource(source);
                       setName(source.name);
@@ -167,7 +167,7 @@ export const IncomeSources: React.FC = () => {
                     className="p-2 hover:bg-destructive/10 rounded-lg transition-colors opacity-0 group-hover:opacity-100"
                   >
                     <Pencil className="w-4 h-4 text-destructive" />
-                  </button>
+                  </button> */}
                   <button
                     onClick={() => deleteIncomeSource(source.id)}
                     className="p-2 hover:bg-destructive/10 rounded-lg transition-colors opacity-0 group-hover:opacity-100"
@@ -265,7 +265,7 @@ export const IncomeSources: React.FC = () => {
                     <div>
                       <label className="block text-sm text-muted-foreground mb-2">Amount</label>
                       <div className="relative">
-                        <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground dark:text-black" />
+                        {/* <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground dark:text-black" /> */}
                         <input
                           type="number"
                           step="0.01"
