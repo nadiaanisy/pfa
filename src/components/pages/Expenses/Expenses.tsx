@@ -165,7 +165,7 @@ export const Expenses: React.FC = () => {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search expenses..."
-                className="w-full pl-11 pr-4 py-3 bg-muted/50 rounded-xl border border-border/50 focus:border-primary focus:outline-none transition-colors"
+                className="w-full pl-11 pr-4 py-3 bg-muted/50 rounded-xl border border-border/50 focus:border-primary focus:outline-none transition-colors dark:text-black"
               />
             </div>
 
@@ -173,7 +173,7 @@ export const Expenses: React.FC = () => {
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="px-4 py-2 bg-background rounded-lg border border-border/50 focus:border-primary focus:outline-none transition-colors cursor-pointer"
+                className="dark:text-black px-4 py-2 bg-background rounded-lg border border-border/50 focus:border-primary focus:outline-none transition-colors cursor-pointer"
               >
                 <option value="All">All Categories</option>
                 {CATEGORIES.map((cat) => (
@@ -184,7 +184,7 @@ export const Expenses: React.FC = () => {
               <select
                 value={selectedSource}
                 onChange={(e) => setSelectedSource(e.target.value)}
-                className="px-4 py-2 bg-background rounded-lg border border-border/50 focus:border-primary focus:outline-none transition-colors cursor-pointer"
+                className="dark:text-black px-4 py-2 bg-background rounded-lg border border-border/50 focus:border-primary focus:outline-none transition-colors cursor-pointer"
               >
                 <option value="All">All Sources</option>
                 {incomeSources.map((source) => (
@@ -195,7 +195,7 @@ export const Expenses: React.FC = () => {
               <select
                 value={selectedMonth}
                 onChange={(e) => setSelectedMonth(e.target.value)}
-                className="px-4 py-2 bg-background rounded-lg border border-border/50 focus:border-primary focus:outline-none transition-colors cursor-pointer"
+                className="dark:text-black px-4 py-2 bg-background rounded-lg border border-border/50 focus:border-primary focus:outline-none transition-colors cursor-pointer"
               >
                 {months.map((month) => (
                   <option key={month} value={month}>
@@ -207,7 +207,7 @@ export const Expenses: React.FC = () => {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="px-4 py-2 bg-background rounded-lg border border-border/50 focus:border-primary focus:outline-none transition-colors cursor-pointer"
+                className="dark:text-black px-4 py-2 bg-background rounded-lg border border-border/50 focus:border-primary focus:outline-none transition-colors cursor-pointer"
               >
                 <option value="date_desc">Date ↓</option>
                 <option value="date_asc">Date ↑</option>

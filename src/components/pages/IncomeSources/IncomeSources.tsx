@@ -207,7 +207,7 @@ export const IncomeSources: React.FC = () => {
             <select
               value={filterType}
               onChange={(e) => setFilterType(e.target.value)}
-              className="px-3 py-2 rounded-lg border border-border/50 focus:outline-none focus:border-primary"
+              className="dark:text-black px-3 py-2 rounded-lg border border-border/50 focus:outline-none focus:border-primary"
             >
               <option value="all">All Types</option>
               {INCOME_TYPES.map((item) => (
@@ -221,7 +221,7 @@ export const IncomeSources: React.FC = () => {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="px-3 py-2 rounded-lg border border-border/50 focus:outline-none focus:border-primary"
+              className="dark:text-black px-3 py-2 rounded-lg border border-border/50 focus:outline-none focus:border-primary"
             >
               <option value="amount">Sort by Amount</option>
               <option value="balance">Sort by Balance</option>
@@ -232,7 +232,7 @@ export const IncomeSources: React.FC = () => {
             <select
               value={selectedMonth || 'all'}
               onChange={(e) => setSelectedMonth(e.target.value === 'all' ? null : e.target.value)}
-              className="px-3 py-2 rounded-lg border border-border/50 focus:outline-none focus:border-primary"
+              className="dark:text-black px-3 py-2 rounded-lg border border-border/50 focus:outline-none focus:border-primary"
             >
               <option value="all">All Time</option>
               {months.slice(1).map((m: any) => (
@@ -305,7 +305,7 @@ export const IncomeSources: React.FC = () => {
                         onChange={(e) => setName(e.target.value)}
                         placeholder="e.g., Freelance Work"
                         required
-                        className="w-full px-4 py-3 bg-muted/50 rounded-xl border border-border/50 focus:border-primary focus:outline-none transition-colors"
+                        className="dark:text-black w-full px-4 py-3 bg-muted/50 rounded-xl border border-border/50 focus:border-primary focus:outline-none transition-colors"
                       />
                     </div>
 
@@ -314,7 +314,7 @@ export const IncomeSources: React.FC = () => {
                       <select
                         value={type}
                         onChange={(e) => setType(e.target.value as any)}
-                        className="w-full px-4 py-3 bg-muted/50 rounded-xl border border-border/50 focus:border-primary focus:outline-none transition-colors cursor-pointer"
+                        className="dark:text-black w-full px-4 py-3 bg-muted/50 rounded-xl border border-border/50 focus:border-primary focus:outline-none transition-colors cursor-pointer"
                       >
                         {INCOME_TYPES.map((item) => (
                           <option key={item.value} value={item.value}>
@@ -342,7 +342,7 @@ export const IncomeSources: React.FC = () => {
                         }}
                         placeholder="0.00"
                         required
-                        className="w-full px-4 py-3 bg-muted/50 rounded-xl border border-border/50 focus:border-primary focus:outline-none transition-colors"
+                        className="dark:text-black w-full px-4 py-3 bg-muted/50 rounded-xl border border-border/50 focus:border-primary focus:outline-none transition-colors"
                       />
                     </div>
 
@@ -353,7 +353,7 @@ export const IncomeSources: React.FC = () => {
                         value={purposeMonth}
                         onChange={(e) => setPurposeMonth(e.target.value)}
                         required
-                        className="w-full px-4 py-3 bg-muted/50 rounded-xl border border-border/50 focus:border-primary focus:outline-none transition-colors"
+                        className="dark:text-black w-full px-4 py-3 bg-muted/50 rounded-xl border border-border/50 focus:border-primary focus:outline-none transition-colors"
                       />
                     </div>
 

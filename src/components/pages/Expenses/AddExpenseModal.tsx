@@ -264,7 +264,7 @@ export const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
                   <input
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
-                    className="w-full pl-11 pr-4 py-3 bg-muted/50 rounded-xl border border-border/50 focus:border-primary focus:outline-none"
+                    className="dark:text-black w-full pl-11 pr-4 py-3 bg-muted/50 rounded-xl border border-border/50 focus:border-primary focus:outline-none"
                     placeholder="e.g. Grocery shopping"
                     required
                   />
@@ -288,7 +288,7 @@ export const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
                         setAmount(value);
                       }
                     }}
-                    className="w-full pl-11 pr-4 py-3 bg-muted/50 rounded-xl border border-border/50 focus:border-primary focus:outline-none"
+                    className="dark:text-black w-full pl-11 pr-4 py-3 bg-muted/50 rounded-xl border border-border/50 focus:border-primary focus:outline-none"
                     placeholder="0.00"
                     required
                   />
@@ -305,7 +305,7 @@ export const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
                   <select
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
-                    className="w-full pl-11 pr-4 py-3 bg-muted/50 rounded-xl border border-border/50 appearance-none cursor-pointer"
+                    className="dark:text-black w-full pl-11 pr-4 py-3 bg-muted/50 rounded-xl border border-border/50 appearance-none cursor-pointer"
                   >
                     {CATEGORIES.map((cat) => (
                       <option key={cat} value={cat}>
@@ -327,7 +327,7 @@ export const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
                     type="date"
                     value={date}
                     onChange={(e) => setDate(e.target.value)}
-                    className="w-full pl-11 pr-4 py-3 bg-muted/50 rounded-xl border border-border/50"
+                    className="dark:text-black w-full pl-11 pr-4 py-3 bg-muted/50 rounded-xl border border-border/50"
                     required
                   />
                 </div>
@@ -339,7 +339,7 @@ export const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
                 <select
                   value={incomeSourceId}
                   onChange={(e) => setIncomeSourceId(e.target.value)}
-                  className="w-full px-4 py-3 bg-muted/50 rounded-xl border border-border/50 focus:border-primary focus:outline-none transition-colors appearance-none cursor-pointer"
+                  className="dark:text-black w-full px-4 py-3 bg-muted/50 rounded-xl border border-border/50 focus:border-primary focus:outline-none transition-colors appearance-none cursor-pointer"
                   required
                 >
                   <option value="" disabled hidden>Select an Income Source</option>
@@ -376,7 +376,7 @@ export const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
                   onChange={(e) =>
                     setRecurringFrequency(e.target.value as any)
                   }
-                  className="w-full px-4 py-3 bg-muted/50 rounded-xl border border-border/50"
+                  className="dark:text-black w-full px-4 py-3 bg-muted/50 rounded-xl border border-border/50"
                 >
                   <option value="daily">Daily</option>
                   <option value="weekly">Weekly</option>
@@ -390,7 +390,7 @@ export const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
                 <textarea
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  className="w-full px-4 py-3 bg-muted/50 rounded-xl border border-border/50 focus:border-primary focus:outline-none transition-colors resize-none"
+                  className="dark:text-black w-full px-4 py-3 bg-muted/50 rounded-xl border border-border/50 focus:border-primary focus:outline-none transition-colors resize-none"
                   rows={3}
                   placeholder="Add any additional details..."
                 />
