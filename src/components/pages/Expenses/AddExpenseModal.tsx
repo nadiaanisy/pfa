@@ -15,17 +15,17 @@ import { toast } from 'sonner';
 import {
   addExpense,
   updateExpense
-} from '../../services/expenses';
+} from '../../../services/expenses';
 import { format } from 'date-fns';
 import {
   getIncomeSources,
   updateIncomeSourceBalance
-} from '../../services/incomeSources';
+} from '../../../services/incomeSources';
 import React, { useEffect } from 'react'
-import { CATEGORIES } from '../../misc/constants';
-import { IncomeSource } from '../../misc/interfaces';
-import { useCustomHook } from '../../misc/customHooks';
-import { getCurrentUser } from '../../services/settings-user';
+import { CATEGORIES } from '../../../misc/constants';
+import { IncomeSource } from '../../../misc/interfaces';
+import { useCustomHook } from '../../../misc/customHooks';
+import { getCurrentUser } from '../../../services/settings-user';
 
 interface AddExpenseModalProps {
   isOpen: boolean;
