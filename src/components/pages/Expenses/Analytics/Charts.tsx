@@ -28,12 +28,13 @@ import {
   addMonths
 } from 'date-fns';
 import { motion } from 'motion/react';
-import { IncomeSource } from '../../misc/interfaces';
-import { useCustomHook } from '../../misc/customHooks';
-import { fetchExpenses } from '../../services/expenses';
-import { getCurrentUser } from '../../services/settings-user';
-import { getIncomeSources } from '../../services/incomeSources';
-import { CATEGORIES } from '../../misc/constants';
+import { CATEGORIES } from '../../../../misc/constants';
+import { IncomeSource } from '../../../../misc/interfaces';
+import { useCustomHook } from '../../../../misc/customHooks';
+import { fetchExpenses } from '../../../../services/expenses';
+import { getCurrentUser } from '../../../../services/settings-user';
+import { getIncomeSources } from '../../../../services/incomeSources';
+import { useExpenses } from '../../../../services/context/ExpenseContext';
 
 const COLORS = [
   '#FFB4B4',
@@ -173,7 +174,7 @@ export const CategoryPieChart: React.FC = () => {
       </h3>
 
       {/* ---------------- Quick Buttons ---------------- */}
-      <div className="flex gap-2 mb-4 flex-wrap">
+      <div className="dark:text-black flex gap-2 mb-4 flex-wrap">
         <button
           onClick={() => handleQuick('month')}
           className="px-3 py-1 bg-green-200 rounded-lg hover:bg-green-300 transition"
@@ -202,7 +203,7 @@ export const CategoryPieChart: React.FC = () => {
           onChange={(e) =>
             setFilters(f => ({ ...f, category: e.target.value }))
           }
-          className="px-3 py-2 rounded-lg bg-muted/50 border border-border/50"
+          className="dark:text-black px-3 py-2 rounded-lg bg-muted/50 border border-border/50"
         >
           <option value="all">All categories</option>
           {CATEGORIES.map(cat => (
@@ -224,7 +225,7 @@ export const CategoryPieChart: React.FC = () => {
                   : Number(e.target.value),
             }))
           }
-          className="px-3 py-2 rounded-lg bg-muted/50 border border-border/50"
+          className="dark:text-black px-3 py-2 rounded-lg bg-muted/50 border border-border/50"
         >
           <option value="all">All months</option>
           {Array.from({ length: 12 }).map((_, i) => (
@@ -248,7 +249,7 @@ export const CategoryPieChart: React.FC = () => {
                   : Number(e.target.value),
             }))
           }
-          className="px-3 py-2 rounded-lg bg-muted/50 border border-border/50"
+          className="dark:text-black px-3 py-2 rounded-lg bg-muted/50 border border-border/50"
         >
           <option value="all">All years</option>
           {availableYears.map(y => (
@@ -302,6 +303,7 @@ export const CategoryPieChart: React.FC = () => {
 export const ExpenseTrendChart: React.FC = () => {
   const currentUser = getCurrentUser();
   const { expenses, setExpenses } = useCustomHook();
+  const { darkMode } = useExpenses();
 
   const [filters, setFilters] = useState<FilterState>({
     category: 'all',
@@ -423,7 +425,7 @@ export const ExpenseTrendChart: React.FC = () => {
       <h3 className="text-lg font-semibold mb-4">Expense Trend</h3>
 
       {/* Quick Buttons */}
-      <div className="flex gap-2 mb-4 flex-wrap">
+      <div className="dark:text-black flex gap-2 mb-4 flex-wrap">
         <button
           onClick={() => handleQuick('month')}
           className="px-3 py-1 bg-green-200 rounded-lg hover:bg-green-300 transition"
@@ -452,7 +454,7 @@ export const ExpenseTrendChart: React.FC = () => {
           onChange={e =>
             setFilters(f => ({ ...f, category: e.target.value }))
           }
-          className="px-3 py-2 rounded-lg bg-muted/50 border border-border/50"
+          className="dark:text-black px-3 py-2 rounded-lg bg-muted/50 border border-border/50"
         >
           <option value="all">All categories</option>
           {CATEGORIES.map(cat => (
@@ -474,7 +476,7 @@ export const ExpenseTrendChart: React.FC = () => {
                   : Number(e.target.value),
             }))
           }
-          className="px-3 py-2 rounded-lg bg-muted/50 border border-border/50"
+          className="dark:text-black px-3 py-2 rounded-lg bg-muted/50 border border-border/50"
         >
           <option value="all">All months</option>
           {Array.from({ length: 12 }).map((_, i) => (
@@ -498,7 +500,7 @@ export const ExpenseTrendChart: React.FC = () => {
                   : Number(e.target.value),
             }))
           }
-          className="px-3 py-2 rounded-lg bg-muted/50 border border-border/50"
+          className="dark:text-black px-3 py-2 rounded-lg bg-muted/50 border border-border/50"
         >
           <option value="all">All years</option>
           {availableYears.map(y => (
@@ -520,10 +522,10 @@ export const ExpenseTrendChart: React.FC = () => {
           <LineChart data={trendData}>
             <CartesianGrid
               strokeDasharray="3 3"
-              stroke="var(--color-border)"
+              stroke={darkMode ? '#4B5563' : '#4B5563'}
             />
-            <XAxis dataKey="label" stroke="var(--color-muted-foreground)" />
-            <YAxis stroke="var(--color-muted-foreground)" />
+            <XAxis dataKey="label" stroke={ darkMode ? '#F9FAFB' : 'var(--color-muted-foreground)'} />
+            <YAxis stroke={ darkMode ? '#F9FAFB' : 'var(--color-muted-foreground)'} />
             <Tooltip
               formatter={(value: number | undefined) => formatAmount(currency, value)}
               contentStyle={{
