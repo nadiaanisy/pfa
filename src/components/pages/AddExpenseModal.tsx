@@ -236,7 +236,7 @@ export const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="fixed inset-4 md:left-[35%] md:-translate-x-1/2 md:-translate-y-1/2 md:flex md:flex-col md:justify-center md:w-full md:max-w-lg bg-card rounded-3xl shadow-2xl z-50 overflow-hidden"
+            className="fixed inset-4 md:left-[35%] md:-translate-x-1/2 md:-translate-y-1/2 md:justify-center md:w-full md:max-w-lg bg-card rounded-3xl shadow-2xl z-50 overflow-hidden"
           >
             <div className="flex items-center justify-between p-6 border-b border-border/50">
               <h2 className="text-xl font-semibold">

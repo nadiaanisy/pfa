@@ -1,4 +1,4 @@
-import { supabase } from "../misc/supabaseClient";
+import { supabase } from '../misc/supabaseClient';
 
 export const fetchExpenses = async (userId: string) => {
   try {

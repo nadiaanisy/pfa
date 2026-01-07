@@ -4,6 +4,7 @@ import {
 } from '../misc/interfaces';
 import bcrypt from 'bcryptjs';
 import { supabase } from '../misc/supabaseClient';
+import { use } from 'react';
 
 export const signUp = async (payload: SignupPayload) => {
   try {
@@ -13,6 +14,7 @@ export const signUp = async (payload: SignupPayload) => {
       .from("users")
       .insert({
         full_name: payload.full_name,
+        username: payload.username,
         email: payload.email,
         password_hash: hashedPassword,
       })
@@ -28,14 +30,21 @@ export const signUp = async (payload: SignupPayload) => {
 };
 
 export const forgotPassword = async (payload: ForgotPasswordPayload) => {
+  let eu = '';
+  if (payload.identifier.includes('@')) {
+    eu = 'email'
+  } else {
+    eu = 'username'
+  }
+
   const { data, error } = await supabase
     .from("users")
     .select("*")
-    .eq("email", payload.email)
+    .eq(eu, payload.identifier)
     .single();
   
   if (error || !data) {
-    throw new Error("No account found with this email");
+    throw new Error("No account found with this email/username");
   }
 
   return { email: data.email };
@@ -58,16 +67,23 @@ export const changePassword = async (email: string, newPassword: string) => {
   }
 };
 
-export const login = async (email: string, password: string) => {
+export const login = async (identifier: string, password: string) => {
   try {
+    let eu = '';
+    if (identifier.includes('@')) {
+      eu = 'email'
+    } else {
+      eu = 'username'
+    }
+
     const { data, error } = await supabase
       .from("users")
       .select("*")
-      .eq("email", email)
+      .eq(eu, identifier)
       .single();
 
     if (error || !data) {
-      throw new Error("No account found with this email");
+      throw new Error("No account found with this email/username");
     }
 
     const isValid = bcrypt.compareSync(password, data.password_hash);

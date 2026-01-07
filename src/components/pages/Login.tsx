@@ -29,8 +29,8 @@ const Login: React.FC = () => {
     setApiError("");
 
     try {
-      await login(data.email, data.password);
-      setAuth(data.email);
+      await login(data.identifier, data.password);
+      setAuth(data.identifier);
       setSuccess(true);
 
       setTimeout(() => {
@@ -58,15 +58,15 @@ const Login: React.FC = () => {
     >
       <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Email</label>
+            <label className="block text-sm font-medium text-gray-700">Email / Username</label>
             <input
-              type="email"
-              placeholder="email@example.com"
-              {...register("email")}
+              type="text"
+              placeholder="email@example.com or username"
+              {...register("identifier")}
               className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
-            {errors.email && (
-              <p className="text-xs text-red-500 mt-1">{errors.email.message}</p>
+            {errors.identifier && (
+              <p className="text-xs text-red-500 mt-1">{errors.identifier.message}</p>
             )}
           </div>
 

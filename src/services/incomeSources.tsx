@@ -44,6 +44,7 @@ export const addIncomeSource = async (incomeSource: {
   amount: number;
   balance: number;
   color: string;
+  purposeMonth: string;
 }) => {
   try {
     const { data, error } = await supabase

@@ -48,7 +48,7 @@ const ForgotPassword: React.FC = () => {
   return (
     <AuthLayout
       title="Forgot Password"
-      subtitle="Enter your email and we’ll send you a reset link."
+      subtitle="Enter your email/username to verify your account."
       footer={
         <>
           Remember your password?{" "}
@@ -67,15 +67,15 @@ const ForgotPassword: React.FC = () => {
       ) : (
         <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Email</label>
+            <label className="block text-sm font-medium text-gray-700">Email/Username</label>
             <input
-              type="email"
-              placeholder="email@example.com"
-              {...register("email")}
+              type="text"
+              placeholder="email@example.com or username"
+              {...register("identifier")}
               className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
-            {errors.email && (
-              <p className="text-xs text-red-500 mt-1">{errors.email.message}</p>
+            {errors.identifier && (
+              <p className="text-xs text-red-500 mt-1">{errors.identifier.message}</p>
             )}
           </div>
 
@@ -86,7 +86,7 @@ const ForgotPassword: React.FC = () => {
             className="w-full rounded-lg bg-indigo-600 py-2.5 text-white font-medium hover:bg-indigo-700 transition"
             disabled={loading}
           >
-            {loading ? "Verifying..." : "Verify Email"}
+            {loading ? "Verifying..." : "Verify Account"}
           </button>
         </form>
       )}

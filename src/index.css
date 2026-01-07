@@ -241,3 +241,11 @@ a {
 .bg-aliceblue {
   background-color: #f0f8ff;
 }
+
+.text-primary {
+  color: var(--primary);
+}
+
+.bg-soft-gray {
+  background-color: #c6c6c667;
+}
