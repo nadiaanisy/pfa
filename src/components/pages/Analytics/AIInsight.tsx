@@ -7,10 +7,10 @@ import {
   Target,
   Sparkles,
 } from 'lucide-react';
-import { useCustomHook } from '../../../../misc/customHooks';
-import { fetchExpenses } from '../../../../services/expenses';
-import { getCurrentUser } from '../../../../services/settings-user';
-import { getIncomeSources } from '../../../../services/incomeSources';
+import { useCustomHook } from '../../../misc/customHooks';
+import { fetchExpenses } from '../../../services/expenses';
+import { getCurrentUser } from '../../../services/settings-user';
+import { getIncomeSources } from '../../../services/incomeSources';
 
 export const AIInsights: React.FC = () => {
   const { expenses, setExpenses, incomeSources, setIncomeSources } =

@@ -28,13 +28,13 @@ import {
   addMonths
 } from 'date-fns';
 import { motion } from 'motion/react';
-import { CATEGORIES } from '../../../../misc/constants';
-import { IncomeSource } from '../../../../misc/interfaces';
-import { useCustomHook } from '../../../../misc/customHooks';
-import { fetchExpenses } from '../../../../services/expenses';
-import { getCurrentUser } from '../../../../services/settings-user';
-import { getIncomeSources } from '../../../../services/incomeSources';
-import { useExpenses } from '../../../../services/context/ExpenseContext';
+import { CATEGORIES } from '../../../misc/constants';
+import { IncomeSource } from '../../../misc/interfaces';
+import { useCustomHook } from '../../../misc/customHooks';
+import { fetchExpenses } from '../../../services/expenses';
+import { getCurrentUser } from '../../../services/settings-user';
+import { getIncomeSources } from '../../../services/incomeSources';
+import { useExpenses } from '../../../services/context/ExpenseContext';
 
 const COLORS = [
   '#FFB4B4',
