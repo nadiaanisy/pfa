@@ -19,7 +19,7 @@ function App() {
     <AuthProvider>
       <ExpenseProvider>
         <Toaster
-          position="top-right"
+          position="bottom-right"
           richColors
         />
         <BrowserRouter>
