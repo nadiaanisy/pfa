@@ -9,7 +9,8 @@ import {
   Tag,
   FileText,
   Repeat,
-  Pencil
+  Pencil,
+  Coins
 } from 'lucide-react';
 import { toast } from 'sonner';
 import {
@@ -260,7 +261,7 @@ export const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
                   Title
                 </label>
                 <div className="relative">
-                  <FileText className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                  <FileText className="dark:text-black absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                   <input
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
@@ -277,7 +278,7 @@ export const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
                   Amount
                 </label>
                 <div className="relative">
-                  {/* <Sign className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" /> */}
+                  <Coins className="dark:text-black absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                   <input
                     type="number"
                     step="0.01"
@@ -301,7 +302,7 @@ export const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
                   Category
                 </label>
                 <div className="relative">
-                  <Tag className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                  <Tag className="dark:text-black absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                   <select
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
@@ -322,7 +323,7 @@ export const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
                   Date
                 </label>
                 <div className="relative">
-                  <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                  <Calendar className="dark:text-black absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                   <input
                     type="date"
                     value={date}
