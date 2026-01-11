@@ -46,6 +46,10 @@ export const DebtTracker: React.FC = () => {
   const [isDeletingDebt, setIsDeletingDebt] = React.useState<string | null>(null);
   const [isAddingPayment, setIsAddingPayment] = React.useState(false);
   const [isDeletingPayment, setIsDeletingPayment] = React.useState<string | null>(null);
+  const [filterStatus, setFilterStatus] = React.useState<'all' | 'paid' | 'unpaid' | 'overdue'>('all');
+  const [filterPriority, setFilterPriority] = React.useState<'all' | 'low' | 'medium' | 'high'>('all');
+  const [searchPerson, setSearchPerson] = React.useState('');
+  const [sortBy, setSortBy] = React.useState<'newest' | 'oldest' | 'amountHigh' | 'amountLow' | 'dueSoon' | 'nameAZ' | 'nameZA'>('newest');
 
   const currentUser = getCurrentUser();
   const {
@@ -119,8 +123,64 @@ export const DebtTracker: React.FC = () => {
     return { youOwe, othersOwe, totalDebts, totalLoans };
   }, [debts]);
 
-  const youOweDebts = debts.filter(d => d.type === 'owe');
-  const othersOweDebts = debts.filter(d => d.type === 'owed');
+  const applyFilters = (debtList: any[]) => {
+    return debtList.filter(d => {
+      // Status filter
+      if (filterStatus !== 'all') {
+        if (filterStatus === 'paid' && d.status !== 'paid') return false;
+        if (filterStatus === 'unpaid' && d.status === 'paid') return false;
+        if (filterStatus === 'overdue') {
+          if (!d.due_date || !isPast(parseISO(d.due_date)) || d.status === 'paid') return false;
+        }
+      }
+
+      // Priority filter
+      if (filterPriority !== 'all' && d.priority !== filterPriority) {
+        return false;
+      }
+
+      // Search by person
+      if (searchPerson.trim()) {
+        if (!d.person_name.toLowerCase().includes(searchPerson.toLowerCase())) {
+          return false;
+        }
+      }
+
+      return true;
+    });
+  };
+
+  const applySorting = (debtList: any[]) => {
+    return [...debtList].sort((a, b) => {
+      switch (sortBy) {
+        case 'oldest':
+          return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
+
+        case 'amountHigh':
+          return (b.remaining_amount ?? b.total_amount) - (a.remaining_amount ?? a.total_amount);
+
+        case 'amountLow':
+          return (a.remaining_amount ?? a.total_amount) - (b.remaining_amount ?? b.total_amount);
+
+        case 'dueSoon':
+          if (!a.due_date) return 1;
+          if (!b.due_date) return -1;
+          return new Date(a.due_date).getTime() - new Date(b.due_date).getTime();
+
+        case 'nameAZ':
+          return a.person_name.localeCompare(b.person_name);
+
+        case 'nameZA':
+          return b.person_name.localeCompare(a.person_name);
+
+        default: // newest
+          return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+      }
+    });
+  };
+
+  const youOweDebts = applySorting(applyFilters(debts.filter(d => d.type === 'owe')));
+  const othersOweDebts = applySorting(applyFilters(debts.filter(d => d.type === 'owed')));
   const selectedDebt = debts.find(d => d.id === showPaymentModal);
   const remainingAmount = selectedDebt?.remaining_amount ?? selectedDebt?.total_amount ?? 0;
 
@@ -307,8 +367,56 @@ export const DebtTracker: React.FC = () => {
           currency={currentUser.currency}
         />
 
-        {/* Action Button */}
-        <div className="flex justify-center md:justify-end">
+        {/* Filter and Action Button */}
+        <div className="flex justify-center md:justify-end gap-3">
+          {/* Search */}
+          <input
+            type="text"
+            placeholder="Search person..."
+            value={searchPerson}
+            onChange={(e) => setSearchPerson(e.target.value)}
+            className="px-3 py-2 border rounded-lg bg-muted/50"
+          />
+
+          {/* Status */}
+          <select
+            value={filterStatus}
+            onChange={(e) => setFilterStatus(e.target.value as any)}
+            className="px-3 py-2 border rounded-lg bg-muted/50"
+          >
+            <option value="all">All Status</option>
+            <option value="unpaid">Unpaid</option>
+            <option value="paid">Paid</option>
+            <option value="overdue">Overdue</option>
+          </select>
+
+          {/* Priority */}
+          <select
+            value={filterPriority}
+            onChange={(e) => setFilterPriority(e.target.value as any)}
+            className="px-3 py-2 border rounded-lg bg-muted/50"
+          >
+            <option value="all">All Priority</option>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+
+          {/* Sort By */}
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value as any)}
+            className="px-3 py-2 border rounded-lg bg-muted/50"
+          >
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+            <option value="amountHigh">Amount: High → Low</option>
+            <option value="amountLow">Amount: Low → High</option>
+            <option value="dueSoon">Due Date: Soonest</option>
+            <option value="nameAZ">Name: A → Z</option>
+            <option value="nameZA">Name: Z → A</option>
+          </select>
+
           <button
             onClick={() => setShowAddModal(true)}
             className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#4F6B52] to-[#5B3E80] text-white rounded-xl hover:shadow-lg transition-all"

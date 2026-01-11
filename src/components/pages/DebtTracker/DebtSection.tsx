@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import {
   CheckCircle,
   TrendingDown,
@@ -33,6 +34,18 @@ export const DebtSection: React.FC<DebtSectionProps> = ({
 }) => {
   const isYouOwe = title === 'You Owe';
 
+  const [page, setPage] = useState(1);
+  const itemsPerPage = 4;
+
+  const totalPages = Math.ceil(debts.length / itemsPerPage);
+
+  const paginatedDebts = debts.slice(
+    (page - 1) * itemsPerPage,
+    page * itemsPerPage
+  );
+
+  useEffect(() => setPage(1), [debts]);
+
   return (
     <div className="bg-card rounded-2xl p-6 shadow-sm border border-border/50">
       {/* Section Header */}
@@ -50,7 +63,7 @@ export const DebtSection: React.FC<DebtSectionProps> = ({
 
       {/* Debt List */}
       <div className="space-y-4">
-        {debts.map((d: any, index: number) => (
+        {paginatedDebts.map((d: any, index: number) => (
           <DebtCard
             key={d.id}
             title={title}
@@ -86,6 +99,39 @@ export const DebtSection: React.FC<DebtSectionProps> = ({
           </div>
         )}
       </div>
+
+      {/* ✅ Pagination Controls */}
+      {totalPages > 1 && (
+        <div className="flex justify-center gap-2 mt-6">
+          <button
+            disabled={page === 1}
+            onClick={() => setPage(p => p - 1)}
+            className="px-3 py-1 rounded-lg border disabled:opacity-40"
+          >
+            Prev
+          </button>
+
+          {[...Array(totalPages)].map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setPage(i + 1)}
+              className={`px-3 py-1 rounded-lg border ${
+                page === i + 1 ? 'bg-primary text-white' : ''
+              }`}
+            >
+              {i + 1}
+            </button>
+          ))}
+
+          <button
+            disabled={page === totalPages}
+            onClick={() => setPage(p => p + 1)}
+            className="px-3 py-1 rounded-lg border disabled:opacity-40"
+          >
+            Next
+          </button>
+        </div>
+      )}
     </div>
   );
 };
